@@ -1,0 +1,58 @@
+2022-01-29 08:32:19.826  INFO 7264 --- [restartedMain] com.paymybuddy.PaymybuddyApplication     : Starting PaymybuddyApplication using Java 11.0.12 on DESKTOP-6IH3S7H with PID 7264 (C:\Users\olvic\Documents\OCjava\projet 6\sts_workspace_4\paymybuddy\target\classes started by olvic in C:\Users\olvic\Documents\OCjava\projet 6\sts_workspace_4\paymybuddy)
+2022-01-29 08:32:19.834  INFO 7264 --- [restartedMain] com.paymybuddy.PaymybuddyApplication     : No active profile set, falling back to default profiles: default
+2022-01-29 08:32:19.914  INFO 7264 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-01-29 08:32:19.914  INFO 7264 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-01-29 08:32:21.139  INFO 7264 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-01-29 08:32:21.244  INFO 7264 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 88 ms. Found 3 JPA repository interfaces.
+2022-01-29 08:32:22.514  INFO 7264 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-01-29 08:32:22.533  INFO 7264 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-01-29 08:32:22.534  INFO 7264 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2022-01-29 08:32:22.774  INFO 7264 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-01-29 08:32:22.775  INFO 7264 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2860 ms
+2022-01-29 08:32:22.907  WARN 7264 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Cannot deserialize session attribute [SPRING_SECURITY_CONTEXT] for session [3EEC68DAD685B91B6E9D03B74E90ACD1]
+2022-01-29 08:32:23.195  INFO 7264 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-01-29 08:32:23.317  INFO 7264 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.3.Final
+2022-01-29 08:32:23.671  INFO 7264 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-01-29 08:32:23.930  INFO 7264 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-01-29 08:32:24.646  INFO 7264 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-01-29 08:32:24.702  INFO 7264 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2022-01-29 08:32:25.890  INFO 7264 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-01-29 08:32:25.953  INFO 7264 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-01-29 08:32:26.064  WARN 7264 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-01-29 08:32:27.199  INFO 7264 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1e454c88, org.springframework.security.web.context.SecurityContextPersistenceFilter@24ab4c02, org.springframework.security.web.header.HeaderWriterFilter@3d49d05c, org.springframework.security.web.csrf.CsrfFilter@111d76ef, org.springframework.security.web.authentication.logout.LogoutFilter@3af8ad52, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@1bd88824, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@40409bec, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@135710f3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@41bcaafb, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@51588ef3, org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter@6755926f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@70aa5c4d, org.springframework.security.web.session.SessionManagementFilter@6c5d48ec, org.springframework.security.web.access.ExceptionTranslationFilter@76c0f065, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5bfef197]
+2022-01-29 08:32:27.559  INFO 7264 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2022-01-29 08:32:28.426  INFO 7264 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2022-01-29 08:32:28.498  INFO 7264 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-01-29 08:32:28.515  INFO 7264 --- [restartedMain] com.paymybuddy.PaymybuddyApplication     : Started PaymybuddyApplication in 9.449 seconds (JVM running for 11.085)
+2022-01-29 08:33:11.769  INFO 7264 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-01-29 08:33:11.770  INFO 7264 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-01-29 08:33:11.772  INFO 7264 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2022-01-29 08:33:12.196  WARN 7264 --- [http-nio-8080-exec-1] o.a.c.util.SessionIdGeneratorBase        : Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [213] milliseconds.
+2022-01-29 08:33:12.264  INFO 7264 --- [http-nio-8080-exec-2] com.paymybuddy.controller.AppController  : begin showDashboard
+2022-01-29 08:33:12.322  INFO 7264 --- [http-nio-8080-exec-2] com.paymybuddy.controller.AppController  : end showDashBoard
+2022-01-29 08:33:24.452  INFO 7264 --- [http-nio-8080-exec-9] com.paymybuddy.controller.AppController  : begin showConnections
+2022-01-29 08:33:24.456  INFO 7264 --- [http-nio-8080-exec-9] com.paymybuddy.controller.AppController  : end showConnections
+2022-01-29 08:35:51.866  INFO 7264 --- [http-nio-8080-exec-5] com.paymybuddy.controller.AppController  : begin showDashboard
+2022-01-29 08:35:51.874  INFO 7264 --- [http-nio-8080-exec-5] com.paymybuddy.controller.AppController  : end showDashBoard
+2022-01-29 08:38:08.145  INFO 7264 --- [http-nio-8080-exec-5] com.paymybuddy.controller.AppController  : begin showDashboard
+2022-01-29 08:38:08.152  INFO 7264 --- [http-nio-8080-exec-5] com.paymybuddy.controller.AppController  : end showDashBoard
+2022-01-29 08:38:50.314  INFO 7264 --- [http-nio-8080-exec-9] com.paymybuddy.controller.AppController  : begin showConnections
+2022-01-29 08:38:50.318  INFO 7264 --- [http-nio-8080-exec-9] com.paymybuddy.controller.AppController  : end showConnections
+2022-01-29 08:39:03.073  INFO 7264 --- [http-nio-8080-exec-4] com.paymybuddy.controller.AppController  : begin addConnection
+2022-01-29 08:39:03.095  INFO 7264 --- [http-nio-8080-exec-4] com.paymybuddy.controller.AppController  : end addConnection
+2022-01-29 08:39:07.545  INFO 7264 --- [http-nio-8080-exec-9] com.paymybuddy.controller.AppController  : begin showDashboard
+2022-01-29 08:39:07.560  INFO 7264 --- [http-nio-8080-exec-9] com.paymybuddy.controller.AppController  : end showDashBoard
+2022-01-29 08:39:33.131  INFO 7264 --- [http-nio-8080-exec-4] com.paymybuddy.controller.AppController  : begin payMyBuddy
+2022-01-29 08:39:33.162  INFO 7264 --- [http-nio-8080-exec-4] com.paymybuddy.controller.AppController  : end payMyBuddy
+2022-01-29 08:39:38.568  INFO 7264 --- [http-nio-8080-exec-9] com.paymybuddy.controller.AppController  : begin showDashboard
+2022-01-29 08:39:38.576  INFO 7264 --- [http-nio-8080-exec-9] com.paymybuddy.controller.AppController  : end showDashBoard
+2022-01-29 08:39:55.561  INFO 7264 --- [http-nio-8080-exec-4] com.paymybuddy.controller.AppController  : begin showConnections
+2022-01-29 08:39:55.565  INFO 7264 --- [http-nio-8080-exec-4] com.paymybuddy.controller.AppController  : end showConnections
+2022-01-29 08:39:57.477  INFO 7264 --- [http-nio-8080-exec-9] com.paymybuddy.controller.AppController  : begin showProfile
+2022-01-29 08:39:57.488  INFO 7264 --- [http-nio-8080-exec-9] com.paymybuddy.controller.AppController  : end showProfile
+2022-01-29 08:40:00.172  INFO 7264 --- [http-nio-8080-exec-4] com.paymybuddy.controller.AppController  : begin showDashboard
+2022-01-29 08:40:00.181  INFO 7264 --- [http-nio-8080-exec-4] com.paymybuddy.controller.AppController  : end showDashBoard
+2022-01-29 08:46:32.274  INFO 7264 --- [RMI TCP Connection(22)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2022-01-29 08:46:32.471  INFO 7264 --- [RMI TCP Connection(22)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-01-29 08:46:32.476  INFO 7264 --- [RMI TCP Connection(22)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2022-01-29 08:46:32.492  INFO 7264 --- [RMI TCP Connection(22)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

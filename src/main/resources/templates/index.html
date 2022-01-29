@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to PayMyBuddy</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container text-center">
+    <div class="jumbotron">
+    <h1>Welcome to </h1>
+                <img src="brandlogo.png"   class="img-fluid" width=100% height=auto alt="Brand logo">
+			
+			<h3>
+				<!-- <a th:href="@{/users}">List of Users</a> -->
+			</h3>
+			<h3>
+				<a th:href="@{/register}">Register</a>
+			</h3>
+			<h3>
+				<a th:href="@{/login}">Login</a>
+			</h3>
+			<h3>
+				<a th:href="@{/dashboard}">Transfert</a>
+			</h3>
+		</div>
+        
+    </div>
+     
+</body>
+</html>
