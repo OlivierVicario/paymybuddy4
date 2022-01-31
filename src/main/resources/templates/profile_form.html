@@ -33,13 +33,13 @@
 									</div>
 								</div>
 
-								<div class="form-group row">
+								<!-- <div class="form-group row">
 									<label class="col-4 col-form-label">Password: </label>
 									<div class="col-8">
 										<input type="password" th:field="*{password}"
 											class="form-control" required minlength="6" maxlength="10" />
 									</div>
-								</div>
+								</div> -->
 
 								<div class="form-group row">
 									<label class="col-4 col-form-label">First Name: </label>
@@ -56,9 +56,12 @@
 											required minlength="2" maxlength="20" />
 									</div>
 								</div>
-
+								<input type="hidden" th:field="*{userId}" />
+								<input type="hidden" th:field="*{password}" />
+								<input type="hidden" th:field="*{balance}" />
 								<div>
-									<button type="submit" class="btn btn-primary">Update</button>
+									<button type="submit" class="btn btn-primary"
+										th:href="@{/profile_form(id=${user.userId})}">Update</button>
 								</div>
 
 
@@ -112,9 +115,11 @@
 											required minlength="2" maxlength="20" />
 									</div>
 								</div>
-
+								<input type="hidden" th:field="*{bankAccountId}" />
+								
 								<div>
-									<button type="submit" class="btn btn-primary">Update</button>
+									<button type="submit" class="btn btn-primary"
+										th:href="@{/profile_form(id=${bankAccount.bankAccountId})}">Update</button>
 								</div>
 
 
@@ -123,8 +128,8 @@
 					</div>
 				</div>
 			</div>
-</div>
 		</div>
-		<section class="content-footer" th:replace="fragments/footer"></section>
+	</div>
+	<section class="content-footer" th:replace="fragments/footer"></section>
 </body>
 </html>

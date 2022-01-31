@@ -8,10 +8,12 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -119,7 +121,7 @@ public class AppController {
 	}
 //*****************************************************************************
 	@GetMapping("/profile")
-	public ModelAndView showProfile() {
+	public ModelAndView showProfile(@RequestParam(required=false) Integer userId,@RequestParam(required=false) Integer bankAccountId) {
 		try {
 			LOGGER.info("begin showProfile");
 			
@@ -132,6 +134,7 @@ public class AppController {
 			
 			BankAccount bankAccount = userService.findBankAccount(loggedUser);
 			model.put("bankAccount", bankAccount);
+			
 			return new ModelAndView(viewName, model);
 			
 		} catch (Exception e) {
@@ -146,12 +149,17 @@ public class AppController {
 	@PostMapping("/update_profile")
 	public ModelAndView updateProfile(User user) {
 		try {
-			LOGGER.info("begin updateProfile");
 			
+			LOGGER.info("begin updateProfile");
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			String encodedPassword = passwordEncoder.encode(user.getPassword());
+			user.setPassword(encodedPassword);
+			user.setBalance(user.getBalance());
 			userService.update(user);
 			
+			
 			RedirectView redirectView = new RedirectView();
-			redirectView.setUrl("/dashboard");
+			redirectView.setUrl("/profile");
 			return new ModelAndView(redirectView);
 			
 		} catch (Exception e) {
@@ -163,11 +171,15 @@ public class AppController {
 	}
 
 	@PostMapping("/update_bankaccount")
-	public String updateBankAccount(BankAccount bankAccount) {
+	public ModelAndView updateBankAccount(BankAccount bankAccount) {
 		try {
 			LOGGER.info("begin updateBankAccount");
+			
 			bankAccountService.update(bankAccount);
-			return "redirect:/dashboard";
+			RedirectView redirectView = new RedirectView();
+			redirectView.setUrl("/profile");
+			return new ModelAndView(redirectView);
+			
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 		} finally {
@@ -175,59 +187,6 @@ public class AppController {
 		}
 		return null;
 	}
-//*****************************************************************************/
-
-	/*****************************************************************************
-		@GetMapping("/profile")
-		public String showProfile(Model model) {
-			try {
-				LOGGER.info("begin showProfile");
-				loggedUser = userService.getLoggedUser();
-				model.addAttribute("user", loggedUser);
-				BankAccount bankAccount = userService.findBankAccount(loggedUser);
-				model.addAttribute("bankAccount", bankAccount);
-				return "profile_form";
-			} catch (Exception e) {
-				LOGGER.error(e.getMessage());
-			} finally {
-				LOGGER.info("end showProfile");
-			}
-
-			return null;
-		}
-
-		@PostMapping("/update_profile")
-		public String updateProfile(Model model) {
-			try {
-				LOGGER.info("begin updateProfile");
-				User user = (User) model.getAttribute("user");
-				userService.updateOrSave(user);
-				return "profile_form";
-			} catch (Exception e) {
-				LOGGER.error(e.getMessage());
-			} finally {
-				LOGGER.info("end updateProfile");
-			}
-			return null;
-		}
-
-		@PostMapping("/update_bankaccount")
-		public String updateBankAccount(BankAccount bankAccount) {
-			try {
-				LOGGER.info("begin updateBankAccount");
-				bankAccountService.update(bankAccount);
-				return "redirect:/dashboard";
-			} catch (Exception e) {
-				LOGGER.error(e.getMessage());
-			} finally {
-				LOGGER.info("end updateBankAccount");
-			}
-			return null;
-		}
-	//*****************************************************************************/
-	
-	
-	
 	
 	
 	@GetMapping("/credit_account")
@@ -266,5 +225,5 @@ public class AppController {
 		}
 		return null;
 	}
-//*****************************************************************************
+
 }
