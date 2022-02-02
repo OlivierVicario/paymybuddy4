@@ -18,14 +18,14 @@
 		<div class="col">
 			
 					<h2 class="card-title">Bank Transfert</h2>
-				<form th:action="@{/update_balance}" 
+				<form th:action="@{/update_balances}" th:object="${bankTransfert}"
 							method="post" style="max-width: 600px; margin: 0 auto;">
 							<div class="m-3">
 
 								<div class="form-group row">
 									<label class="col-4 col-form-label">Amount : </label>
 									<div class="col-8">
-										<input type="text" th:field="*{credit}" class="form-control"
+										<input type="text" th:field="*{amount}" class="form-control"
 											required minlength="2" maxlength="20" />
 									</div>
 								</div>

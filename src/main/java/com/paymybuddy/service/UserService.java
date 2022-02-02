@@ -1,6 +1,7 @@
 package com.paymybuddy.service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -41,6 +42,8 @@ public class UserService {
 			transactionRepo.save(transaction);
 			loggedUser.setBalance(loggedUser.getBalance().subtract(transaction.getAmount()));
 			userRepo.save(loggedUser);
+			recipient.setBalance(recipient.getBalance().add(transaction.getAmount()));
+			userRepo.save(recipient);
 			return "success";
 		} else {
 			return "fail";
@@ -61,6 +64,7 @@ public class UserService {
 		bankAccount.setBic("unknow");
 		bankAccount.setIban("unknow");
 		bankAccount.setTitle("unknow");
+		bankAccount.setBalance(new BigDecimal(1000));
 		bankAccountRepo.save(bankAccount);
 		user.setBalance(new BigDecimal(500));
 		userRepo.save(user);
@@ -80,5 +84,13 @@ public class UserService {
 
 	public void update(User user) {
 		userRepo.save(user);
+	}
+	
+	public void save(User user) {
+		userRepo.save(user);
+	}
+	
+	public List<User> getAllUsers() {
+		return userRepo.findAll();
 	}
 }

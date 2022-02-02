@@ -18,10 +18,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.paymybuddy.model.BankAccount;
+import com.paymybuddy.model.BankTransfert;
 import com.paymybuddy.model.Transaction;
 import com.paymybuddy.model.TransactionFormData;
 import com.paymybuddy.model.User;
 import com.paymybuddy.service.BankAccountService;
+import com.paymybuddy.service.BankTransfertService;
 import com.paymybuddy.service.TransactionService;
 import com.paymybuddy.service.UserService;
 
@@ -39,11 +41,14 @@ public class AppController {
 	@Autowired
 	private BankAccountService bankAccountService;
 
+	@Autowired
+	private BankTransfertService bankTransfertService;
+
 	@GetMapping("/dashboard")
 	public String showDashboard(Model model) {
 		try {
 			LOGGER.info("begin showDashboard");
-			
+
 			loggedUser = userService.getLoggedUser();
 			model.addAttribute("user", loggedUser);
 			TransactionFormData transactionFD = new TransactionFormData();
@@ -52,7 +57,7 @@ public class AppController {
 			List<Transaction> transactions = transactionService.getByUserFrom(loggedUser);
 			model.addAttribute("transactions", transactions);
 			return "dashboard_form";
-			
+
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 		} finally {
@@ -66,14 +71,14 @@ public class AppController {
 	public String payMyBuddy(TransactionFormData tfd) {
 		try {
 			LOGGER.info("begin payMyBuddy");
-			
+
 			String state = userService.manageTransaction(tfd);
 			if (state.equals("success")) {
 				return "transaction_success";
 			} else {
 				return "transaction_failure";
 			}
-			
+
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 		} finally {
@@ -82,17 +87,18 @@ public class AppController {
 
 		return null;
 	}
+
 //*********************************** connections *****************************
 	@GetMapping("/connections")
 	public String showConnections(Model model) {
 		try {
 			LOGGER.info("begin showConnections");
-			
+
 			loggedUser = userService.getLoggedUser();
 			List<User> connections = loggedUser.getUsersTo();
 			model.addAttribute("connections", connections);
 			return "connections_form";
-			
+
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 		} finally {
@@ -106,11 +112,11 @@ public class AppController {
 	public String addConnection(String email) {
 		try {
 			LOGGER.info("begin addConnection");
-			
+
 			userService.addUserTo(email);
-			//retourne la page mais vide
+			// retourne la page mais vide
 			return "connections_form";
-			
+
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 		} finally {
@@ -119,24 +125,26 @@ public class AppController {
 
 		return null;
 	}
+
 //*****************************************************************************
 	@GetMapping("/profile")
-	public ModelAndView showProfile(@RequestParam(required=false) Integer userId,@RequestParam(required=false) Integer bankAccountId) {
+	public ModelAndView showProfile(@RequestParam(required = false) Integer userId,
+			@RequestParam(required = false) Integer bankAccountId) {
 		try {
 			LOGGER.info("begin showProfile");
-			
+
 			String viewName = "profile_form";
-			
+
 			Map<String, Object> model = new HashMap<String, Object>();
-			
+
 			loggedUser = userService.getLoggedUser();
 			model.put("user", loggedUser);
-			
+
 			BankAccount bankAccount = userService.findBankAccount(loggedUser);
 			model.put("bankAccount", bankAccount);
-			
+
 			return new ModelAndView(viewName, model);
-			
+
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 		} finally {
@@ -149,19 +157,18 @@ public class AppController {
 	@PostMapping("/update_profile")
 	public ModelAndView updateProfile(User user) {
 		try {
-			
+
 			LOGGER.info("begin updateProfile");
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			String encodedPassword = passwordEncoder.encode(user.getPassword());
 			user.setPassword(encodedPassword);
 			user.setBalance(user.getBalance());
 			userService.update(user);
-			
-			
+
 			RedirectView redirectView = new RedirectView();
 			redirectView.setUrl("/profile");
 			return new ModelAndView(redirectView);
-			
+
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 		} finally {
@@ -174,12 +181,12 @@ public class AppController {
 	public ModelAndView updateBankAccount(BankAccount bankAccount) {
 		try {
 			LOGGER.info("begin updateBankAccount");
-			
+
 			bankAccountService.update(bankAccount);
 			RedirectView redirectView = new RedirectView();
 			redirectView.setUrl("/profile");
 			return new ModelAndView(redirectView);
-			
+
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 		} finally {
@@ -187,17 +194,22 @@ public class AppController {
 		}
 		return null;
 	}
-	
-	
+
 	@GetMapping("/credit_account")
-	public String creditAccount(Model model) {
+	public ModelAndView creditAccount() {
 		try {
 			LOGGER.info("begin creditAccount");
-			
-			String credit = "321321";
-			model.addAttribute("credit", credit);
-			return "creditAccount_form";
-			
+
+			String viewName = "bankTransfert_form";
+
+			Map<String, Object> model = new HashMap<String, Object>();
+			loggedUser = userService.getLoggedUser();
+			BankTransfert bankTransfert = new BankTransfert();
+			bankTransfert.setUser(loggedUser);
+			model.put("bankTransfert", bankTransfert);
+
+			return new ModelAndView(viewName, model);
+
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 		} finally {
@@ -206,22 +218,21 @@ public class AppController {
 		return null;
 	}
 
-	@PostMapping("/update_balance")
-	public String updateBalance(Model model) {
+	@PostMapping("/update_balances")
+	public ModelAndView updateBalance(BankTransfert bankTransfert) {
 		try {
-			LOGGER.info("begin updateBalance");
-			
-			loggedUser = userService.getLoggedUser();
-			BankAccount bankAccount = userService.findBankAccount(loggedUser);
-			String creditS = (String) model.getAttribute("credit").toString();
-			BigDecimal credit = new BigDecimal(creditS);
-			loggedUser.setBalance(loggedUser.getBalance().add(credit));
-			return "creditAccount_form";
-			
+			LOGGER.info("begin updateBalances");
+
+			bankTransfertService.manageBankTransfert(bankTransfert);
+			RedirectView redirectView = new RedirectView();
+			redirectView.setUrl("/dashboard");
+			return new ModelAndView(redirectView);
+
+
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 		} finally {
-			LOGGER.info("end updateBalance");
+			LOGGER.info("end updateBalances");
 		}
 		return null;
 	}
