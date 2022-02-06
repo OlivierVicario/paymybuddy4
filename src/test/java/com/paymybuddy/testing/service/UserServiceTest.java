@@ -1,4 +1,4 @@
-package com.paymybuddy;
+package com.paymybuddy.testing.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -87,15 +87,5 @@ public class UserServiceTest {
 	    verify(userRepository,times(1)).findAll();
 	}
 	
-	@Test 
-	public void InitializationTest() {
-		
-		
-		 userService.initialize(user1);
-		//stubbing
-	    //when(userService.initialize(any())).thenReturn(user1);
-	    
-	     
-	     verify(userService,times(1)).initialize(any());
-	}
+
 }

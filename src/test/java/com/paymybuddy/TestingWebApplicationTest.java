@@ -13,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+// le test fonctionne sans erreur
 @SpringBootTest
 @AutoConfigureMockMvc
 public class TestingWebApplicationTest {
@@ -25,4 +26,6 @@ public class TestingWebApplicationTest {
 		this.mockMvc.perform(get("/home")).andDo(print()).andExpect(status().isOk())
 				.andExpect(content().string(containsString("Welcome to PayMyBuddy")));
 	}
+	
+	
 }

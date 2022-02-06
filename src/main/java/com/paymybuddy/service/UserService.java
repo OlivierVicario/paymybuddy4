@@ -57,7 +57,7 @@ public class UserService {
 		return userRepo.findByEmail(principal.getUsername());
 	}
 
-	public void initialize(User user) {
+	public BankAccount initialize(User user) {
 		BankAccount bankAccount = new BankAccount();
 		bankAccount.setUser(user);
 		bankAccount.setBankName("unknow");
@@ -68,6 +68,7 @@ public class UserService {
 		bankAccountRepo.save(bankAccount);
 		user.setBalance(new BigDecimal(500));
 		userRepo.save(user);
+		return bankAccount;
 	}
 
 	public BankAccount findBankAccount(User user) {

@@ -1,4 +1,4 @@
-package com.paymybuddy;
+package com.paymybuddy.testing.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
