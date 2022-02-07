@@ -33,17 +33,26 @@ public class UserService {
 		User recipient = userRepo.findByFullName(fullName[0], fullName[1]);
 		BigDecimal transactionAmount = new BigDecimal(tfd.getAmount());
 
-		if (transactionAmount.doubleValue() <= getLoggedUser().getBalance().doubleValue()) {
+		Double dbleCom = Double.valueOf(tfd.getAmount()) * 0.005;
+		BigDecimal commission = new BigDecimal(dbleCom);
+
+		if (transactionAmount.doubleValue() + dbleCom <= getLoggedUser().getBalance().doubleValue()) {
 			Transaction transaction = new Transaction();
 			transaction.setAmount(new BigDecimal(tfd.getAmount()));
 			transaction.setDescription(tfd.getDescription());
 			transaction.setUserFrom(getLoggedUser());
 			transaction.setUserTo(recipient);
 			transactionRepo.save(transaction);
-			loggedUser.setBalance(loggedUser.getBalance().subtract(transaction.getAmount()));
+
+			loggedUser.setBalance(loggedUser.getBalance().subtract(transaction.getAmount()).subtract(commission));
 			userRepo.save(loggedUser);
 			recipient.setBalance(recipient.getBalance().add(transaction.getAmount()));
 			userRepo.save(recipient);
+
+			User paymybuddy = userRepo.findByEmail("balance@paymybuddy.com");
+			paymybuddy.setBalance(paymybuddy.getBalance().add(commission));
+			userRepo.save(paymybuddy);
+			
 			return "success";
 		} else {
 			return "fail";
@@ -86,11 +95,11 @@ public class UserService {
 	public void update(User user) {
 		userRepo.save(user);
 	}
-	
+
 	public void save(User user) {
 		userRepo.save(user);
 	}
-	
+
 	public List<User> getAllUsers() {
 		return userRepo.findAll();
 	}
