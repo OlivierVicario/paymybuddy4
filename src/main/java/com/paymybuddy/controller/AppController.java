@@ -1,6 +1,5 @@
 package com.paymybuddy.controller;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,19 +44,20 @@ public class AppController {
 	private BankTransfertService bankTransfertService;
 
 	@GetMapping("/dashboard")
-	public String showDashboard(Model model) {
+	public ModelAndView showDashboard() {
 		try {
 			LOGGER.info("begin showDashboard");
+			String viewName = "dashboard_form";
 
+			Map<String, Object> model = new HashMap<String, Object>();
 			loggedUser = userService.getLoggedUser();
-			model.addAttribute("user", loggedUser);
+			model.put("user", loggedUser);
 			TransactionFormData transactionFD = new TransactionFormData();
 			transactionFD.setConnections(loggedUser.getUsersTo());
-			model.addAttribute("transactionFD", transactionFD);
+			model.put("transactionFD", transactionFD);
 			List<Transaction> transactions = transactionService.getByUserFrom(loggedUser);
-			model.addAttribute("transactions", transactions);
-			return "dashboard_form";
-
+			model.put("transactions", transactions);
+			return new ModelAndView(viewName, model);
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 		} finally {
@@ -90,14 +90,15 @@ public class AppController {
 
 //*********************************** connections *****************************
 	@GetMapping("/connections")
-	public String showConnections(Model model) {
+	public ModelAndView showConnections() {
 		try {
 			LOGGER.info("begin showConnections");
-
+			String viewName = "connections_form";
+			Map<String, Object> model = new HashMap<String, Object>();
 			loggedUser = userService.getLoggedUser();
 			List<User> connections = loggedUser.getUsersTo();
-			model.addAttribute("connections", connections);
-			return "connections_form";
+			model.put("connections", connections);
+			return new ModelAndView(viewName, model);
 
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
@@ -114,7 +115,7 @@ public class AppController {
 			LOGGER.info("begin addConnection");
 
 			userService.addUserTo(email);
-			// retourne la page mais vide
+			
 			return "connections_form";
 
 		} catch (Exception e) {

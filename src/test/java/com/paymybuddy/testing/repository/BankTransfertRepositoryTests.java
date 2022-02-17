@@ -1,5 +1,9 @@
 package com.paymybuddy.testing.repository;
 
+
+
+import java.math.BigDecimal;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
@@ -9,8 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
+import com.paymybuddy.model.BankAccount;
+import com.paymybuddy.model.BankTransfert;
+import com.paymybuddy.model.User;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.Rollback;
+
 
 import com.paymybuddy.model.BankAccount;
 import com.paymybuddy.model.BankTransfert;
@@ -22,9 +32,9 @@ import com.paymybuddy.repository.BankTransfertRepository;
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Rollback(true)
 public class BankTransfertRepositoryTests {
+	
 	@Autowired
 	private TestEntityManager entityManager;
-
 	@Autowired
 	private BankTransfertRepository bankTransfertRepo;
 
@@ -34,7 +44,7 @@ public class BankTransfertRepositoryTests {
 	@Test
 	public void testCreateBankTransfert() {
 		
-		/*User user = new User();
+		User user = new User();
 		BankAccount bankAccount = new BankAccount();
 		bankAccount.setUser(user);
 		bankAccountRepo.save(bankAccount);
@@ -45,12 +55,12 @@ public class BankTransfertRepositoryTests {
 
 		BankTransfert existBankTransfert = entityManager.find(BankTransfert.class, savedBankTransfert.getBankTransfertId());
 
-		assertThat(savedBankTransfert.getAmount()).isEqualTo(existBankTransfert.getAmount());*/
+		assertThat(savedBankTransfert.getAmount()).isEqualTo(existBankTransfert.getAmount());
 	}
 
-	@Test
+/*	@Test
 	public void testUpdateBankTransfert() {
-		/*BankTransfert bankTransfert = new BankTransfert();
+		BankTransfert bankTransfert = new BankTransfert();
 		bankTransfert.setUser(new User());
 		bankTransfert.setAmount(new BigDecimal(1000));
 		BankTransfert savedBankTransfert = bankTransfertRepo.save(bankTransfert);
@@ -61,12 +71,12 @@ public class BankTransfertRepositoryTests {
 
 		BankTransfert existBankTransfert1 = entityManager.find(BankTransfert.class, savedBankTransfert1.getBankTransfertId());
 
-		assertThat(existBankTransfert1.getAmount()).isEqualTo(new BigDecimal(1001));*/
+		assertThat(existBankTransfert1.getAmount()).isEqualTo(new BigDecimal(1001));
 	}
 
 	@Test
 	public void testDeleteBankTransfert() {
-		/*BankTransfert bankTransfert = new BankTransfert();
+		BankTransfert bankTransfert = new BankTransfert();
 		bankTransfert.setUser(new User());
 		bankTransfert.setAmount(new BigDecimal(1000));
 		BankTransfert savedBankTransfert = bankTransfertRepo.save(bankTransfert);
@@ -74,7 +84,23 @@ public class BankTransfertRepositoryTests {
 		bankTransfertRepo.delete(savedBankTransfert);
 		BankTransfert existBankTransfert = entityManager.find(BankTransfert.class, savedBankTransfert.getBankTransfertId());
 
-		assertThat(existBankTransfert).isNull();*/
+		assertThat(existBankTransfert).isNull();
+	}*/
+
+	public BankAccountRepository getBankAccountRepo() {
+		return bankAccountRepo;
+	}
+
+	public void setBankAccountRepo(BankAccountRepository bankAccountRepo) {
+		this.bankAccountRepo = bankAccountRepo;
+	}
+
+	public BankTransfertRepository getBankTransfertRepo() {
+		return bankTransfertRepo;
+	}
+
+	public void setBankTransfertRepo(BankTransfertRepository bankTransfertRepo) {
+		this.bankTransfertRepo = bankTransfertRepo;
 	}
 }
 

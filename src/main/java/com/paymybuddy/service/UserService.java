@@ -28,7 +28,7 @@ public class UserService {
 	BankAccountRepository bankAccountRepo;
 
 	public String manageTransaction(TransactionFormData tfd) {
-		User loggedUser = getLoggedUser();
+		loggedUser = getLoggedUser();
 		String[] fullName = tfd.getConnection().split(" ");
 		User recipient = userRepo.findByFullName(fullName[0], fullName[1]);
 		BigDecimal transactionAmount = new BigDecimal(tfd.getAmount());

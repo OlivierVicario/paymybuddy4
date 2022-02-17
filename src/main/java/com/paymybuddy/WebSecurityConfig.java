@@ -9,13 +9,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.paymybuddy.service.CustomUserDetailsService;
 
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity //? baeldung
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Bean
@@ -41,14 +39,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(authenticationProvider());
 		
-		/*/https://www.baeldung.com/spring-security-integration-tests ************************
-		PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        auth.inMemoryAuthentication()
-         .passwordEncoder(encoder)
-         .withUser("spring")
-         .password(encoder.encode("secret"))
-         .roles("USER");
-        //************************************************************************************/
 	}
 
 	@Override

@@ -1,15 +1,15 @@
 package com.paymybuddy.testing.service;
 
+
+
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,10 +21,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.paymybuddy.model.BankAccount;
+import com.paymybuddy.model.TransactionFormData;
 import com.paymybuddy.model.User;
 import com.paymybuddy.repository.BankAccountRepository;
+import com.paymybuddy.repository.TransactionRepository;
 import com.paymybuddy.repository.UserRepository;
 import com.paymybuddy.service.UserService;
+
+
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
@@ -34,6 +38,9 @@ public class UserServiceTest {
 	
 	@Mock
 	private BankAccountRepository bankAccountRepository;
+	
+	@Mock
+	private TransactionRepository transactionRepository;
 	
 	@Autowired
 	@InjectMocks
@@ -61,6 +68,8 @@ public class UserServiceTest {
 		user2.setFirstName("user");
 		user2.setLastName("two");
 		users.add(user2);
+		
+		
 	}
 	@AfterEach
     public void tearDown() {
@@ -87,5 +96,21 @@ public class UserServiceTest {
 	    verify(userRepository,times(1)).findAll();
 	}
 	
-
+	@Test
+	public void initializeBankAccountTest() {
+		
+		BankAccount bankAccount = userService.initialize(user1);
+		assertEquals(bankAccount.getUser(),user1);
+		
+	}
+	
+	@Test
+	public void managedTransactionTest() {
+		/*
+		 * when(userService.getLoggedUser()).thenReturn(user1); TransactionFormData tfd
+		 * = new TransactionFormData(); tfd.setConnection("user two");
+		 * tfd.setAmount("500"); String retour = userService.manageTransaction(tfd);
+		 * System.out.println("retour = "+ retour);
+		 */
+	}
 }

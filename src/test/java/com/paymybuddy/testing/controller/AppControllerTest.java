@@ -1,45 +1,99 @@
 package com.paymybuddy.testing.controller;
 
-
-import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.HashMap;
-
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.ui.Model;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
-import com.paymybuddy.controller.AppController;
-import com.paymybuddy.model.User;
-import com.paymybuddy.service.UserService;
-
-
-//le test à une erreur
-@SpringBootTest
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 public class AppControllerTest {
 	@Autowired
-	private MockMvc mockMvc;
+	private WebApplicationContext context;
 
-	@MockBean
-	AppController appController;
-	
-	@MockBean
-	UserService userService;
-	
+	@Autowired
+	private MockMvc mvc;
+
+	@Before
+	public void setup() {
+		mvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
+	}
+
+	@WithMockUser(value = "spring")
 	@Test
-	public void shouldReturnDashboard() throws Exception{
+	public void givenAuthRequestOnDashBoard_shouldSucceedWith200() throws Exception {
+		mvc.perform(get("/dashboard")).andExpect(status().isOk()).andExpect(authenticated())
+				.andExpect(status().is2xxSuccessful());
+	}
 
-		/*when(appController.creditAccount()).then(null );
-		this.mockMvc.perform(get("")).andDo(print());*/
-		//this.mockMvc.perform(get("/dashboard")).andExpect(status().is5xxServerError());
+	@WithMockUser(value = "spring")
+	@Test
+	public void givenAuthRequestOnCreditAccount_shouldSucceedWith200() throws Exception {
+		mvc.perform(get("/credit_account")).andExpect(status().isOk()).andExpect(authenticated())
+				.andExpect(status().is2xxSuccessful());
+	}
+
+	@WithMockUser(value = "spring")
+	@Test
+	public void givenAuthRequestOnProfile_shouldSucceedWith200() throws Exception {
+		mvc.perform(get("/profile")).andExpect(status().isOk()).andExpect(authenticated())
+				.andExpect(status().is2xxSuccessful());
+
+	}
+
+	@WithMockUser(value = "spring")
+	@Test
+	public void givenAuthRequestOnConnections_shouldSucceedWith200() throws Exception {
+		mvc.perform(get("/connections")).andExpect(status().isOk()).andExpect(authenticated())
+				.andExpect(status().is2xxSuccessful());
+	}
+
+	@WithMockUser(value = "spring")
+	@Test
+	public void givenAuthRequestOnPayMyBuddy_shouldSucceedWith200() throws Exception {
+		mvc.perform(get("/process_paiement")).andExpect(authenticated());
+
+	}
+	
+	@WithMockUser(value = "spring")
+	@Test
+	public void givenAuthRequestOnAddConnection_shouldSucceedWith200() throws Exception {
+		mvc.perform(get("/process_add_connection")).andExpect(authenticated());
+
+	}
+	
+	@WithMockUser(value = "spring")
+	@Test
+	public void givenAuthRequestOnUpdateProfile_shouldSucceedWith200() throws Exception {
+		mvc.perform(get("/update_profile")).andExpect(authenticated());
+
+	}
+	
+	@WithMockUser(value = "spring")
+	@Test
+	public void givenAuthRequestOnUpdateBankAccount_shouldSucceedWith200() throws Exception {
+		mvc.perform(get("//update_bankaccount")).andExpect(authenticated());
+
+	}
+	
+	@WithMockUser(value = "spring")
+	@Test
+	public void givenAuthRequestOnUpdateBalance_shouldSucceedWith200() throws Exception {
+		mvc.perform(get("/update_balances")).andExpect(authenticated());
+
 	}
 }
