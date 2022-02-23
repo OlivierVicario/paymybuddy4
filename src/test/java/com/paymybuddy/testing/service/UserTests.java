@@ -1,4 +1,4 @@
-package com.paymybuddy.testing.repository;
+package com.paymybuddy.testing.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -16,7 +16,7 @@ import com.paymybuddy.repository.UserRepository;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Rollback(true)
-public class UserRepositoryTests {
+public class UserTests {
 	@Autowired
 	private TestEntityManager entityManager;
 

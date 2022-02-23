@@ -20,12 +20,11 @@ import com.paymybuddy.repository.BankAccountRepository;
 import com.paymybuddy.repository.BankTransfertRepository;
 import com.paymybuddy.repository.TransactionRepository;
 import com.paymybuddy.repository.UserRepository;
-import com.paymybuddy.service.BankAccountService;
 import com.paymybuddy.service.BankTransfertService;
 import com.paymybuddy.service.TransactionService;
 
 @ExtendWith(MockitoExtension.class)
-public class BankAccountServiceTest {
+public class BankTransfertServiceTest {
 
 	@Mock
 	private UserRepository userRepository;
@@ -36,13 +35,15 @@ public class BankAccountServiceTest {
 	@Mock
 	private BankAccountRepository bankAccountRepository;
 
+	@Mock
+	private BankTransfertRepository bankTransfertRepository;
 
 	@Mock
 	private TransactionService transactionService;
 
 	@Autowired
 	@InjectMocks
-	private BankAccountService bankAccountService;
+	private BankTransfertService bankTransfertService;
 
 	private User user1;
 	private BankTransfert bankTransfert;
@@ -77,8 +78,8 @@ public class BankAccountServiceTest {
 	@Test
 	public void bankTransfertServiceTest() {
 
-		//String retour = bankTransfertService.manageBankTransfert(bankTransfert, user1, bankAccount);
-		String retour = bankAccountService.update(bankAccount, user1);
+		String retour = bankTransfertService.manageBankTransfert(bankTransfert, user1, bankAccount);
+
 		assertEquals(retour, "success");
 	}
 

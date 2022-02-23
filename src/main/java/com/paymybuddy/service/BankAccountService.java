@@ -1,11 +1,9 @@
 package com.paymybuddy.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.paymybuddy.model.BankAccount;
-import com.paymybuddy.model.CustomUserDetails;
 import com.paymybuddy.model.User;
 import com.paymybuddy.repository.BankAccountRepository;
 import com.paymybuddy.repository.UserRepository;
@@ -17,15 +15,16 @@ public class BankAccountService {
 	private BankAccountRepository bankAccountRepo;
 	@Autowired
 	private UserRepository userRepo;
-	public void update(BankAccount bankAccount) {
+	
+	public String update(BankAccount bankAccount, User user) {
 		
-		bankAccount.setUser(getLoggedUser());
+		bankAccount.setUser(user);
 		bankAccountRepo.save(bankAccount);
+		return "success";
 	}
 	
-	public User getLoggedUser() {
-		CustomUserDetails principal = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication()
-				.getPrincipal();
-		return userRepo.findByEmail(principal.getUsername());
+	public BankAccount findByUser(User user) {
+		return bankAccountRepo.findByUser(user);
 	}
+	
 }

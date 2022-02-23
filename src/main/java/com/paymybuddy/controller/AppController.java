@@ -72,7 +72,7 @@ public class AppController {
 		try {
 			LOGGER.info("begin payMyBuddy");
 
-			String state = userService.manageTransaction(tfd);
+			String state = userService.manageTransaction(userService.getLoggedUser(),tfd);
 			if (state.equals("success")) {
 				return "transaction_success";
 			} else {
@@ -183,7 +183,7 @@ public class AppController {
 		try {
 			LOGGER.info("begin updateBankAccount");
 
-			bankAccountService.update(bankAccount);
+			bankAccountService.update(bankAccount,userService.getLoggedUser());
 			RedirectView redirectView = new RedirectView();
 			redirectView.setUrl("/profile");
 			return new ModelAndView(redirectView);
@@ -223,8 +223,9 @@ public class AppController {
 	public ModelAndView updateBalance(BankTransfert bankTransfert) {
 		try {
 			LOGGER.info("begin updateBalances");
-
-			bankTransfertService.manageBankTransfert(bankTransfert);
+			loggedUser = userService.getLoggedUser();
+			BankAccount  bankAccount = bankAccountService.findByUser(loggedUser);
+			bankTransfertService.manageBankTransfert(bankTransfert, loggedUser, bankAccount);
 			RedirectView redirectView = new RedirectView();
 			redirectView.setUrl("/dashboard");
 			return new ModelAndView(redirectView);

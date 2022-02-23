@@ -1,4 +1,4 @@
-package com.paymybuddy.testing.repository;
+package com.paymybuddy.testing.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,7 +19,7 @@ import com.paymybuddy.repository.BankAccountRepository;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Rollback(true)
-public class BankAccountRepositoryTests {
+public class BankAccountTests {
 	@Autowired
 	private TestEntityManager entityManager;
 

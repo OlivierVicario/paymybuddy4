@@ -1,4 +1,4 @@
-package com.paymybuddy.testing.repository;
+package com.paymybuddy.testing.service;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
@@ -18,7 +18,7 @@ import com.paymybuddy.repository.TransactionRepository;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Rollback(true)
-public class TransactionRepositoryTests {
+public class TransactionTests {
 	@Autowired
 	private TestEntityManager entityManager;
 

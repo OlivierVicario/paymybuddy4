@@ -23,30 +23,26 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepo;
 	@Autowired
-	private TransactionRepository transactionRepo;
+	private TransactionService transactionService;
+
 	@Autowired
 	BankAccountRepository bankAccountRepo;
 
-	public String manageTransaction(TransactionFormData tfd) {
-		loggedUser = getLoggedUser();
+	public String manageTransaction(User user, TransactionFormData tfd) {
+		
+		loggedUser = user;
 		String[] fullName = tfd.getConnection().split(" ");
 		User recipient = userRepo.findByFullName(fullName[0], fullName[1]);
 		BigDecimal transactionAmount = new BigDecimal(tfd.getAmount());
 
 		Double dbleCom = Double.valueOf(tfd.getAmount()) * 0.005;
 		BigDecimal commission = new BigDecimal(dbleCom);
-
-		if (transactionAmount.doubleValue() + dbleCom <= getLoggedUser().getBalance().doubleValue()) {
-			Transaction transaction = new Transaction();
-			transaction.setAmount(new BigDecimal(tfd.getAmount()));
-			transaction.setDescription(tfd.getDescription());
-			transaction.setUserFrom(getLoggedUser());
-			transaction.setUserTo(recipient);
-			transactionRepo.save(transaction);
-
-			loggedUser.setBalance(loggedUser.getBalance().subtract(transaction.getAmount()).subtract(commission));
+		String transactionCreationResult = transactionService.performTransaction(tfd, loggedUser);
+		if (transactionCreationResult.equals("success")) {
+			
+			loggedUser.setBalance(loggedUser.getBalance().subtract(transactionAmount).subtract(commission));
 			userRepo.save(loggedUser);
-			recipient.setBalance(recipient.getBalance().add(transaction.getAmount()));
+			recipient.setBalance(recipient.getBalance().add(transactionAmount));
 			userRepo.save(recipient);
 
 			User paymybuddy = userRepo.findByEmail("balance@paymybuddy.com");
@@ -61,7 +57,9 @@ public class UserService {
 	}
 
 	public User getLoggedUser() {
-		CustomUserDetails principal = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication()
+		CustomUserDetails principal = (CustomUserDetails) SecurityContextHolder
+				.getContext()
+				.getAuthentication()
 				.getPrincipal();
 		return userRepo.findByEmail(principal.getUsername());
 	}
@@ -102,5 +100,9 @@ public class UserService {
 
 	public List<User> getAllUsers() {
 		return userRepo.findAll();
+	}
+	
+	public User getUserbyEmail(String email){
+		return userRepo.findByEmail(email);		
 	}
 }

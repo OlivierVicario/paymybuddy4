@@ -1,4 +1,4 @@
-package com.paymybuddy.testing.repository;
+package com.paymybuddy.testing.service;
 
 
 
@@ -31,7 +31,7 @@ import com.paymybuddy.repository.BankTransfertRepository;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Rollback(true)
-public class BankTransfertRepositoryTests {
+public class BankTransfertTests {
 	
 	@Autowired
 	private TestEntityManager entityManager;
@@ -58,7 +58,7 @@ public class BankTransfertRepositoryTests {
 		assertThat(savedBankTransfert.getAmount()).isEqualTo(existBankTransfert.getAmount());
 	}
 
-/*	@Test
+	/*@Test
 	public void testUpdateBankTransfert() {
 		BankTransfert bankTransfert = new BankTransfert();
 		bankTransfert.setUser(new User());

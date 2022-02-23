@@ -8,6 +8,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,7 @@ import com.paymybuddy.model.User;
 import com.paymybuddy.repository.BankAccountRepository;
 import com.paymybuddy.repository.TransactionRepository;
 import com.paymybuddy.repository.UserRepository;
+import com.paymybuddy.service.TransactionService;
 import com.paymybuddy.service.UserService;
 
 
@@ -37,10 +39,13 @@ public class UserServiceTest {
 	private UserRepository userRepository;
 	
 	@Mock
+	private TransactionRepository transactionRepository;
+	
+	@Mock
 	private BankAccountRepository bankAccountRepository;
 	
 	@Mock
-	private TransactionRepository transactionRepository;
+	private TransactionService transactionService;
 	
 	@Autowired
 	@InjectMocks
@@ -60,6 +65,7 @@ public class UserServiceTest {
 		user1.setPassword("password");
 		user1.setFirstName("user");
 		user1.setLastName("one");
+		user1.setBalance(new BigDecimal(0));
 		users.add(user1);
 		
 		user2 = new User();
@@ -104,13 +110,30 @@ public class UserServiceTest {
 		
 	}
 	
-	@Test
+/*	@Test
 	public void managedTransactionTest() {
-		/*
-		 * when(userService.getLoggedUser()).thenReturn(user1); TransactionFormData tfd
-		 * = new TransactionFormData(); tfd.setConnection("user two");
-		 * tfd.setAmount("500"); String retour = userService.manageTransaction(tfd);
-		 * System.out.println("retour = "+ retour);
-		 */
+		  
+		TransactionFormData tfd = new TransactionFormData(); 
+		tfd.setConnection("user two");
+		  tfd.setAmount("1500"); 
+		  String retour = userService.manageTransaction(user1,tfd);
+		  System.out.println("retour = "+ retour);
+		  assertEquals(retour,"fail");
+	}*/
+	
+	@Test
+	public void findBankAccountTest() {
+
+		BankAccount bankAccount = userService.initialize(user1);
+		BankAccount bankAccount1 = userService.findBankAccount(user1);
+		assertEquals(bankAccount.getUser(),user1);
+		
+	}
+	
+	@Test
+	public void addUserToTest() {
+
+		//to do
+		
 	}
 }
