@@ -24,12 +24,13 @@
 			</div>
 			<div class="col">
 			
-			<form class="form-inline" th:action="@{/credit_account}" method="get">
+			<form class="form-inline" th:action="@{/private/credit_account}" method="get">
 					<input type="submit" class="btn btn-primary"
 						value="credit your account" />
 				</form>
 				<p></p>
-				<form class="form-inline" th:action="@{/connections}" method="get">
+				<form class="form-inline" th:action="@{/private/connections}" method="get">
+				
 					<input type="submit" class="btn btn-primary"
 						value="add a new connection" />
 				</form>
@@ -41,7 +42,7 @@
 			<h2>Send Money</h2>
 
 
-			<form th:action="@{/process_paiement}" th:object="${transactionFD}"
+			<form th:action="@{/private/process_paiement}" th:object="${transactionFD}"
 				method="post">
 				<div class="row">
 					<div class="col">
@@ -55,13 +56,13 @@
 						<input type="text" class="form-control" th:field="*{description}"
 							placeholder="description" />
 					</div>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 					<div class="col">
 						<input type="text" class="form-control" th:field="*{amount}"
-			
-			
 							placeholder="€" /> <input type="submit" class="btn btn-primary"
 							value="pay" />
 					</div>
+					
 				</div>
 			</form>
 		</div>

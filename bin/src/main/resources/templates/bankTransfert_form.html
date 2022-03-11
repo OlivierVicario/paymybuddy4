@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Profile</title>
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<section class="content-header" th:replace="fragments/header"></section>
+	<div class="container">
+		<div class="row">
+	
+
+		<div class="col">
+			
+					<h2 class="card-title">Bank Transfert</h2>
+				<form th:action="@{/update_balances}" th:object="${bankTransfert}"
+							method="post" style="max-width: 600px; margin: 0 auto;">
+							<div class="m-3">
+
+								<div class="form-group row">
+									<label class="col-4 col-form-label">Amount : </label>
+									<div class="col-8">
+										<input type="text" th:field="*{amount}" class="form-control"
+											required minlength="2" maxlength="20" />
+									</div>
+								</div>
+
+								<div>
+									<button type="submit" class="btn btn-primary">Credit my account from bank</button>
+								</div>
+
+
+							</div>
+						</form>
+		</div>
+	</div>
+	</div>
+	<section class="content-footer" th:replace="fragments/footer"></section>
+</body>
+</html>

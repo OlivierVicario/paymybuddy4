@@ -13,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.paymybuddy.service.CustomUserDetailsService;
 
 @Configuration
-@EnableWebSecurity //? baeldung
+@EnableWebSecurity//c'est cette classe qui configure la securite
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Bean
@@ -37,27 +37,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		// Database users
 		auth.authenticationProvider(authenticationProvider());
-		
+
+		// InMemory users
+				String encodedPassword = passwordEncoder().encode("password");
+				auth.inMemoryAuthentication().passwordEncoder(passwordEncoder())
+					.withUser("olivier").password(encodedPassword).roles("USER"); 
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()	
-		.antMatchers("/dashboard", "/profile","/account","/connections","/logout")
-				.authenticated()
-				.anyRequest()
-				.permitAll()
-			.and()
-				.formLogin()
-				.usernameParameter("email")
-				.defaultSuccessUrl("/dashboard").permitAll()
-			.and()
-				.rememberMe()
-				.tokenValiditySeconds(7 * 24 * 60 * 60) // expiration time: 7 days
-			    .key("AbcdefghiJklmNoPqRstUvXyz")   // cookies will survive if restarted
-			.and()
-				.logout().logoutSuccessUrl("/").permitAll();
+		http.authorizeRequests()
+				// .antMatchers("/dashboard", "/profile","/account","/connections","/logout")
+				.antMatchers("/private/**").authenticated().anyRequest().permitAll()
+				.and().formLogin().usernameParameter("email").defaultSuccessUrl("/private/dashboard").permitAll()
+				.and().rememberMe().tokenValiditySeconds(7 * 24 * 60 * 60) // expiration time: 7 days
+				.key("AbcdefghiJklmNoPqRstUvXyz") // cookies will survive if restarted
+				.and().logout().logoutSuccessUrl("/").permitAll();
+				//.and().csrf().disable();
 
 	}
 }

@@ -34,7 +34,7 @@ public class LoginController {
 
 		principal = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-		return "redirect:/dashboard";
+		return "redirect:/private/dashboard";
 	}
 
 	@GetMapping("/home")
@@ -73,7 +73,7 @@ public class LoginController {
 
 		principal = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-		return "redirect:/dashboard";
+		return "redirect:/private/dashboard";
 	}
 
 }

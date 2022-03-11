@@ -1,0 +1,35 @@
+
+<!-- ********************************************************** Menu ----------------------------------->
+<div class="bg-light">
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<nav class=" col navbar navbar-expand-lg bg-light navbar-light">
+					<a class="navbar-brand" href="#"> <img src="logo.png"
+						width="123" height="30" alt="Site logo"> Pay My Buddy
+					</a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse"
+						data-target="#navbarContent">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+
+					<div id="navbarContent" class="collapse navbar-collapse">
+						<ul class="navbar-nav">
+						<li class="nav-item"><a class="nav-link"
+								href="home">Home</a></li>
+							<li class="nav-item"><a class="nav-link"
+								href="/dashboard">Transfer</a></li>
+							<li class="nav-item"><a class="nav-link"
+								th:href="@{/profile}">Profile</a></li>
+							<li class="nav-item"><a class="nav-link"
+								th:href="@{/connections}">Contacts</a></li>
+							<li class="nav-item"><a class="nav-link"
+								th:href="@{/logout}">Log out</a></li>
+							</th:block>
+						</ul>
+					</div>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>

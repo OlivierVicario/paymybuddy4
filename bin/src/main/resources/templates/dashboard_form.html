@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Transactions</title>
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<section class="content-header" th:replace="fragments/header"></section>
+
+	<div class="container">
+		<p></p>
+		<div class="row">
+			<div class="col">
+				<h2>Welcome</h2>
+				<h4>
+					<b>[[${#request.userPrincipal.principal.fullName}]]</b>,your
+					balance is <b>[[${user.getBalance()}]] </b>€
+				</h4>
+			</div>
+			<div class="col">
+			
+			<form class="form-inline" th:action="@{/credit_account}" method="get">
+					<input type="submit" class="btn btn-primary"
+						value="credit your account" />
+				</form>
+				<p></p>
+				<form class="form-inline" th:action="@{/connections}" method="get">
+					<input type="submit" class="btn btn-primary"
+						value="add a new connection" />
+				</form>
+			</div>
+		</div>
+
+		<p></p>
+		<div class="row">
+			<h2>Send Money</h2>
+
+
+			<form th:action="@{/process_paiement}" th:object="${transactionFD}"
+				method="post">
+				<div class="row">
+					<div class="col">
+						<select th:field="*{connection}">
+							<option value="">Select a connection</option>
+							<option th:each="connection: ${transactionFD.connections}"
+								th:value="${connection}" th:text="${connection}">
+						</select>
+					</div>
+					<div class="col">
+						<input type="text" class="form-control" th:field="*{description}"
+							placeholder="description" />
+					</div>
+					<div class="col">
+						<input type="text" class="form-control" th:field="*{amount}"
+			
+			
+							placeholder="€" /> <input type="submit" class="btn btn-primary"
+							value="pay" />
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<p></p>
+
+
+
+
+
+	</div>
+
+
+
+
+	<p></p>
+	<div class="container text-center">
+		<h1>My Transactions</h1>
+		<table class="table table-striped table-bordered">
+			<thead class="thead-dark">
+				<tr>
+					<th>Connection</th>
+					<th>Description</th>
+					<th>Amount</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="transaction: ${transactions}">
+					<td th:text="${transaction.userTo}">userTo</td>
+					<td th:text="${transaction.description}">description</td>
+					<td th:text="${transaction.amount}">amount</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<section class="content-footer" th:replace="fragments/footer"></section>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Transactions</title>
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<section class="content-header" th:replace="fragments/header"></section>
+
+	<div class="container">
+		<form method="post" th:action="@{/process_add_connection}">
+			<h1>Add a connection</h1>
+
+			<p>
+				<label for="email" class="col-4 col-form-label">Recipient Email</label> 
+					<input type="text" id="email" name="email"
+					class="form-control" placeholder="email" required autofocus>
+			</p>
+			<input name="_csrf" type="hidden"
+				value="68a4782e-7345-43b5-b30a-8f88c547c54c" />
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Add</button>
+		</form>
+		<p></p>
+		</div>
+
+			<div class="container text-center">
+				<h1>My Connections</h1>
+				<table class="table table-striped table-bordered">
+					<thead class="thead-dark">
+						<tr>
+							<th>user ID</th>
+							<th>E-mail</th>
+							<th>First Name</th>
+							<th>Last Name</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="connection: ${connections}">
+							<td th:text="${connection.userId}">connection ID</td>
+							<td th:text="${connection.email}">E-mail</td>
+							<td th:text="${connection.firstName}">First Name</td>
+							<td th:text="${connection.lastName}">Last Name</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<section class="content-footer" th:replace="fragments/footer"></section>
+</body>
+</html>

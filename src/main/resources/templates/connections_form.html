@@ -13,7 +13,7 @@
 	<section class="content-header" th:replace="fragments/header"></section>
 
 	<div class="container">
-		<form method="post" th:action="@{/process_add_connection}">
+		<form method="post" th:action="@{/private/process_add_connection}">
 			<h1>Add a connection</h1>
 
 			<p>
@@ -21,8 +21,7 @@
 					<input type="text" id="email" name="email"
 					class="form-control" placeholder="email" required autofocus>
 			</p>
-			<input name="_csrf" type="hidden"
-				value="68a4782e-7345-43b5-b30a-8f88c547c54c" />
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Add</button>
 		</form>
 		<p></p>

@@ -20,7 +20,7 @@
 
 						<h2 class="card-title">User Profile</h2>
 
-						<form th:action="@{/update_profile}" th:object="${user}"
+						<form th:action="@{/private/update_profile}" th:object="${user}"
 							method="post" style="max-width: 600px; margin: 0 auto;">
 							<div class="m-3">
 
@@ -59,9 +59,10 @@
 								<input type="hidden" th:field="*{userId}" />
 								<input type="hidden" th:field="*{password}" />
 								<input type="hidden" th:field="*{balance}" />
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 								<div>
 									<button type="submit" class="btn btn-primary"
-										th:href="@{/profile_form(id=${user.userId})}">Update</button>
+										th:href="@{/private/profile_form(id=${user.userId})}">Update</button>
 								</div>
 
 
@@ -77,7 +78,7 @@
 
 						<h2 class="card-title">Bank Account</h2>
 
-						<form th:action="@{/update_bankaccount}"
+						<form th:action="@{/private/update_bankaccount}"
 							th:object="${bankAccount}" method="post"
 							style="max-width: 600px; margin: 0 auto;">
 							<div class="m-3">
@@ -116,10 +117,10 @@
 									</div>
 								</div>
 								<input type="hidden" th:field="*{bankAccountId}" />
-								
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 								<div>
 									<button type="submit" class="btn btn-primary"
-										th:href="@{/profile_form(id=${bankAccount.bankAccountId})}">Update</button>
+										th:href="@{/private/profile_form(id=${bankAccount.bankAccountId})}">Update</button>
 								</div>
 
 

@@ -13,32 +13,36 @@
 	<section class="content-header" th:replace="fragments/header"></section>
 	<div class="container">
 		<div class="row">
-	
-
-		<div class="col">
-			
-					<h2 class="card-title">Bank Transfert</h2>
-				<form th:action="@{/update_balances}" th:object="${bankTransfert}"
-							method="post" style="max-width: 600px; margin: 0 auto;">
-							<div class="m-3">
-
-								<div class="form-group row">
-									<label class="col-4 col-form-label">Amount : </label>
-									<div class="col-8">
-										<input type="text" th:field="*{amount}" class="form-control"
-											required minlength="2" maxlength="20" />
-									</div>
-								</div>
-
-								<div>
-									<button type="submit" class="btn btn-primary">Credit my account from bank</button>
-								</div>
 
 
+			<div class="col">
+
+				<h2 class="card-title">Bank Transfert</h2>
+				<form th:action="@{/private/update_balances}"
+					th:object="${bankTransfert}" method="post"
+					style="max-width: 600px; margin: 0 auto;">
+					<div class="m-3">
+
+						<div class="form-group row">
+							<label class="col-4 col-form-label">Amount : </label>
+							<div class="col-8">
+								<input type="text" th:field="*{amount}" class="form-control"
+									required minlength="2" maxlength="20" />
 							</div>
-						</form>
+						</div>
+						<input type="hidden" name="${_csrf.parameterName}"
+							value="${_csrf.token}" />
+						<div>
+							<button type="submit" class="btn btn-primary">Credit my
+								account from bank</button>
+						</div>
+
+
+					</div>
+
+				</form>
+			</div>
 		</div>
-	</div>
 	</div>
 	<section class="content-footer" th:replace="fragments/footer"></section>
 </body>
